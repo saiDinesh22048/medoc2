@@ -5,10 +5,10 @@ import whisper
 import tempfile
 import os
 
-"""audio_value = st.audio_input("Record a voice message")
+#audio_value = st.audio_input("Record a voice message")
 
-if audio_value:
-    st.audio(audio_value)"""
+#if audio_value:
+    #st.audio(audio_value)"""
 
 # Load Whisper model
 @st.cache_resource
