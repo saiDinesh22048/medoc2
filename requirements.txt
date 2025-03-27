@@ -1,8 +1,6 @@
-streamlit>=1.26.0
-streamlit-webrtc
-git+https://github.com/openai/whisper.git
+streamlit
+openai-whisper
 torch
 torchaudio
-torchvision
 ffmpeg
-
+numpy
