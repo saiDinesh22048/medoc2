@@ -30,9 +30,9 @@ if audio_file is not None:
     st.write(f"Audio saved at: {audio_save_path}")
     st.audio(audio_file)
 
-# Transcribe audio
-st.write("Transcribing audio...")
-transcription = model.transcribe(audio_save_path)
-
-st.write("*Transcription:*")
-st.write(transcription["text"])
+    # Transcribe audio
+    st.write("Transcribing audio...")
+    transcription = model.transcribe(audio_save_path)
+    
+    st.write("*Transcription:*")
+    st.write(transcription["text"])
