@@ -18,7 +18,7 @@ def load_model():
 model = load_model()
 
 # Ensure directory for storing audio responses
-AUDIO_SAVE_PATH = "/"
+AUDIO_SAVE_PATH = "audio_responses"
 os.makedirs(AUDIO_SAVE_PATH,exist_ok=True)
 audio_file = st.audio_input("Record your response")
 if audio_file is not None:
