@@ -1,14 +1,7 @@
 import streamlit as st
-import json
-from streamlit_webrtc import webrtc_streamer  # WebRTC for live recording
-import whisper
-import tempfile
 import os
-
-#audio_value = st.audio_input("Record a voice message")
-
-#if audio_value:
-    #st.audio(audio_value)"""
+import whisper
+from streamlit_webrtc import webrtc_streamer  # WebRTC for live recording
 
 # Load Whisper model
 @st.cache_resource
@@ -17,13 +10,11 @@ def load_model():
 
 model = load_model()
 
-# Ensure directory for storing audio responses
-AUDIO_SAVE_PATH = "audio_responses"
-os.makedirs(AUDIO_SAVE_PATH,exist_ok=True)
+# Save the recorded audio in the root directory
 audio_file = st.audio_input("Record your response")
 if audio_file is not None:
-    # Save the recorded audio
-    audio_save_path = os.path.join(AUDIO_SAVE_PATH, "recorded_response.wav")
+    audio_save_path = "recorded_response.wav"  # Directly in the root directory
+    
     with open(audio_save_path, "wb") as f:
         f.write(audio_file.getbuffer())
 
@@ -31,7 +22,7 @@ if audio_file is not None:
     st.audio(audio_file)
 
     # Transcribe audio
-    st.write("Transcribing audio...")
+    st.write("Transcribing audio...")
     transcription = model.transcribe(audio_save_path)
     
     st.write("*Transcription:*")
