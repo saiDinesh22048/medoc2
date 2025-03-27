@@ -1,38 +1,20 @@
+# pip install streamlit
 import streamlit as st
-import json
-from streamlit_webrtc import webrtc_streamer  # WebRTC for live recording
 import whisper
-import tempfile
-import os
 
-#audio_value = st.audio_input("Record a voice message")
+st.title("Whisper App")
 
-#if audio_value:
-    #st.audio(audio_value)"""
+# upload audio file with streamlit
+audio_file = st.file_uploader("Upload Audio", type=["wav", "mp3", "m4a"])
 
-# Load Whisper model
-@st.cache_resource
-def load_model():
-    return whisper.load_model("base")
+model = whisper.load_model("base")
+st.text("Whisper Model Loaded")
 
-model = load_model()
-
-# Ensure directory for storing audio responses
-
-
-audio_file = st.audio_input("Record your response")
-if audio_file is not None:
-    # Save the recorded audio
-    audio_save_path = "recorded_response.wav"
-    with open(audio_save_path, "wb") as f:
-        f.write(audio_file.getbuffer())
-
-    st.write(f"Audio saved at: {audio_save_path}")
-    st.audio(audio_file)
-
-    # Transcribe audio
-    st.write("Transcribing audio...")
-    transcription = model.transcribe(audio_save_path)
-    
-    st.write("Transcription:")
-    st.write(transcription["text"])
+if st.sidebar.button("Transcribe Audio"):
+    if audio_file is not None:
+        st.sidebar.success("Transcribing Audio")
+        transcription = model.transcribe(audio_file.name)
+        st.sidebar.success("Transcription Complete")
+        st.markdown(transcription["text"])
+    else:
+        st.sidebar.error("Please upload an audio file")
